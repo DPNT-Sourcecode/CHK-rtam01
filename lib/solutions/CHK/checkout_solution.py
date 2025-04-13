@@ -17,8 +17,8 @@ class CheckoutSolution:
         self.inventory = {
             "A": InventoryItem("A", 50, 3, 130),
             "B": InventoryItem("B", 30, 2, 45),
-            "C": InventoryItem("C", 20, 1, 0),
-            "D": InventoryItem("D", 15, 1, 0),
+            "C": InventoryItem("C", 20, 1, 20),
+            "D": InventoryItem("D", 15, 1, 15),
         }
 
     def input_valid(self, skus):
@@ -52,6 +52,8 @@ class CheckoutSolution:
             total += count // item.bulk * item.bulk_price
             # Calculate extras
             total += count % item.bulk * item.price
+
         return total
+
 
 
