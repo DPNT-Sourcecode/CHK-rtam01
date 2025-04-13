@@ -21,18 +21,23 @@ class CheckoutSolution:
             "D": InventoryItem("D", 15, 1, 0),
         }
 
+    def input_valid(self, skus):
+        # Check for undefined invent
+        if not isinstance(skus, list):
+            return False
+        if not all(isinstance(sku, str) and len(sku) == 1 and sku.isalpha() for sku in skus):
+            return False
+
     # skus = unicode string
     def checkout(self, skus):
         # Check for undefined invent
-        if not isinstance(skus, list):
+        if not self.input_valid(skus):
             return -1
-        if not all(isinstance(sku, str) and len(sku) == 1 for sku in skus):
-            return -1
-        
 
         # Count occurrences
         counts = Counter(skus)
         total = 0
 
         # Sum up total
+
 
