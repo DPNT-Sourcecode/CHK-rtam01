@@ -39,8 +39,12 @@ class TestCheckout:
     def test_multiple_items(self):
         assert CheckoutSolution().checkout(["A", "B", "C"]) == 100
 
-    def test_bulk_discount_multiple_items(self):
-        assert CheckoutSolution().checkout(["A", "A", "B", "B"]) == 145
+    def test_multiple_bulk_discounts_different_products(self):
+        assert CheckoutSolution().checkout(["A", "A", "A", "B", "B"]) == 175
+
+    def test_multiple_bulk_discounts_same_product(self):
+        assert CheckoutSolution().checkout(["A", "A", "A", "A", "A", "A"]) == 260
+
 
 
 
