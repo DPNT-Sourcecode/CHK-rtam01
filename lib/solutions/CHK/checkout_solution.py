@@ -109,10 +109,7 @@ class CheckoutSolution:
         total = 0
 
         total += self.handle_group_discounts(counts)
-
-        # Sum up total
         self.handle_free_items(counts)
-
         total += self.handle_bulk_discounts_and_loose_items(counts)
 
         return total
@@ -171,6 +168,7 @@ class CheckoutSolution:
                 # Remove from group items
                 items_to_removed -= remove_count
         return total
+
 
 
 
