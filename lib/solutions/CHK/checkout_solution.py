@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from collections import Counter
 from typing import List
 
@@ -28,7 +28,7 @@ class CheckoutSolution:
         self.inventory = {
             "A": InventoryItem(
                 "A", 50,
-                bulk_discount=3,
+                bulk_discount=[Discount(3, 130), Discount(5, 200)],
 
             ),
             "B": InventoryItem("B", 30, 2, 45),
@@ -72,6 +72,7 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
+
 
 
 
