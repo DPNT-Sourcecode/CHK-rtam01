@@ -112,16 +112,7 @@ class CheckoutSolution:
         counts = Counter(skus)
         total = 0
 
-        # Check for group discount
-        # Ensure best discount is given
-        group_items = {sku: counts[sku] for sku in self.group_discount.skus if sku in counts}
-        total_group_count = sum(group_items.values())
-        if total_group_count >= self.group_discount.quantity:
-            # How many groups we have
-            group_discount_count = total_group_count // self.group_discount.quantity
-            total += group_discount_count * self.group_discount.price
-            for sku in group_items:
-                counts[sku] -= group_discount_count
+        total += self.handle_group_discounts(counts)
 
         # Sum up total
         for sku, count in counts.items():
@@ -147,3 +138,33 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
+    def handle_group_discounts(self, counts):
+        total = 0
+        # Check for group discount
+        # Ensure best discount is given
+        group_items = {sku: counts[sku] for sku in self.group_discount.skus if sku in counts}
+        total_group_count = sum(group_items.values())
+        if total_group_count >= self.group_discount.quantity:
+            # How many groups we have
+            group_discount_count = total_group_count // self.group_discount.quantity
+            total += group_discount_count * self.group_discount.price
+
+            # Remove grouped items from counts, expensive -> cheapest
+            items_to_removed = group_discount_count * self.group_discount.quantity
+            sorted_group_items = sorted(
+                group_items.items(),
+                key=lambda x: self.inventory[x[0]].price,
+                reverse=True
+            )
+            for sku, count in sorted_group_items:
+                if items_to_removed <= 0:
+                    break
+                # Remove as many items as possible
+                remove_count = min(count, items_to_removed)
+                # Remove from basket
+                counts[sku] -= remove_count
+                # Remove from group items
+                items_to_removed -= remove_count
+        return total
+
