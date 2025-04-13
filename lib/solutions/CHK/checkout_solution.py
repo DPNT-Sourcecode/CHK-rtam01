@@ -1,13 +1,24 @@
 from dataclasses import dataclass
 from collections import Counter
+from typing import List
 
+
+@dataclass
+class Discount:
+    quantity: int
+    price: int
+
+@dataclass
+class FreeItem:
+    quantity: int
+    free_sku: str
 
 @dataclass
 class InventoryItem:
     sku: str
     price: int
-    bulk: int
-    bulk_price: int
+    bulk_discounts: List[Discount] = field(default_factory=list)
+    free_items: List[FreeItem] = field(default_factory=list)
 
 
 class CheckoutSolution:
@@ -15,7 +26,11 @@ class CheckoutSolution:
     def __init__(self):
         # Define items
         self.inventory = {
-            "A": InventoryItem("A", 50, 3, 130),
+            "A": InventoryItem(
+                "A", 50,
+                bulk_discount=3,
+
+            ),
             "B": InventoryItem("B", 30, 2, 45),
             "C": InventoryItem("C", 20, 0, 0),
             "D": InventoryItem("D", 15, 0, 0),
@@ -57,6 +72,7 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
+
 
 
 
