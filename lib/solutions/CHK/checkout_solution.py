@@ -51,6 +51,61 @@ class CheckoutSolution:
                 10,
                 [],
                 [FreeItem(3, "F")]),  # Three in basket = 1 free
+            "G": InventoryItem("G", 20),
+            "H": InventoryItem(
+                "H",
+                10,
+                [Discount(5, 45), Discount(10, 80)],
+            ),
+            "I": InventoryItem("I", 35),
+            "J": InventoryItem("J", 60),
+            "K": InventoryItem(
+                "K",
+                80,
+                [Discount(2, 150)],
+            ),
+            "L": InventoryItem("L", 90),
+            "M": InventoryItem("M", 15),
+            "N": InventoryItem(
+                "N",
+                40,
+                [],
+                [FreeItem(3, "M")],
+            ),
+            "O": InventoryItem("O", 10),
+            "P": InventoryItem(
+                "P",
+                50,
+                [Discount(5, 200)],
+            ),
+            "Q": InventoryItem(
+                "Q",
+                30,
+                [Discount(3, 80)],
+            ),
+            "R": InventoryItem(
+                "R",
+                50,
+                [],
+                [FreeItem(3, "Q")],
+            ),
+            "S": InventoryItem("S", 30),
+            "T": InventoryItem("T", 20),
+            "U": InventoryItem(
+                "U",
+                40,
+                [],
+                [FreeItem(4, "U")],  # Four in basket = 1 free
+            ),
+            "V": InventoryItem(
+                "V",
+                50,
+                [Discount(2, 90), Discount(3, 130)],
+            ),
+            "W": InventoryItem("W", 20),
+            "X": InventoryItem("X", 90),
+            "Y": InventoryItem("Y", 10),
+            "Z": InventoryItem("Z", 50),
         }
 
     def input_valid(self, skus):
@@ -101,3 +156,4 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
