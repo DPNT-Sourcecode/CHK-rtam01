@@ -48,6 +48,11 @@ class TestCheckout:
             ("PPQR", 180),
             ("RRRRRRRRRQQQ", 450),
             ("UUUU", 120),
+            ("SSS", 45),
+            ("XYZ", 45),
+            ("ZZZYYY", 90),
+            ("ZZZXX", 79)
+
         ],
         ids=[
             "no_items",
@@ -70,7 +75,12 @@ class TestCheckout:
             "mix_of_products",
             "discount_fiend",
             "buy_four_get_one_free",
+            "group_discount_same_product",
+            "group_discount_mixed_products",
+            "multiple_group_discounts",
+            "Most_expensive_group_discount",
         ],
     )
     def test_checkout(self, input_data, expected_output):
         assert CheckoutSolution().checkout(input_data) == expected_output
+
