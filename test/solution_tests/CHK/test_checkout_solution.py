@@ -41,6 +41,7 @@ class TestCheckout:
             ("EEEEBB", 160),
             ("EE", 80),
             ("EEBBB", 125),
+            ("FFF", 20),
         ],
         ids=[
             "no_items",
@@ -56,10 +57,12 @@ class TestCheckout:
             "two_freebies",
             "freebie_not_in_basket",
             "freebie_and_discount",
+            "buy_three_get_one_free",
         ],
     )
     def test_checkout(self, input_data, expected_output):
         assert CheckoutSolution().checkout(input_data) == expected_output
+
 
 
 

@@ -44,6 +44,11 @@ class CheckoutSolution:
                 [],
                 [FreeItem(2, "B")],
             ),
+            "F": InventoryItem(
+                "F",
+                10,
+                [],
+                [FreeItem(3, "F")]),
         }
 
     def input_valid(self, skus):
@@ -94,6 +99,7 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
 
 
 
