@@ -112,6 +112,10 @@ class CheckoutSolution:
         counts = Counter(skus)
         total = 0
 
+        # Check for group discount
+        # Ensure best discount is given
+
+
         # Sum up total
         for sku, count in counts.items():
             item = self.inventory[sku]
@@ -136,5 +140,6 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
 
 
