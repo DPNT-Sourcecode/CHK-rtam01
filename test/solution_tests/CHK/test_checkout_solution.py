@@ -48,6 +48,3 @@ class TestCheckout:
 
     def test_multiple_bulk_discounts_same_product(self):
         assert CheckoutSolution().checkout("AAAAAA") == 260
-
-
-

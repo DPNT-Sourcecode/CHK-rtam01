@@ -27,14 +27,23 @@ class CheckoutSolution:
         # Define items
         self.inventory = {
             "A": InventoryItem(
-                "A", 50,
-                bulk_discount=[Discount(3, 130), Discount(5, 200)],
-
+                "A",
+                50,
+                [Discount(3, 130), Discount(5, 200)],
             ),
-            "B": InventoryItem("B", 30, 2, 45),
-            "C": InventoryItem("C", 20, 0, 0),
-            "D": InventoryItem("D", 15, 0, 0),
-            "E": InventoryItem("E", 40, 0, 0),
+            "B": InventoryItem(
+                "B",
+                30,
+                [Discount(2, 45)],
+            ),
+            "C": InventoryItem("C", 20),
+            "D": InventoryItem("D", 15),
+            "E": InventoryItem(
+                "E",
+                40,
+                [],
+                [FreeItem(2, "B")],
+            ),
         }
 
     def input_valid(self, skus):
@@ -72,8 +81,3 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
-
-
-
-
-
