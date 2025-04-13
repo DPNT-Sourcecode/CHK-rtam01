@@ -8,10 +8,12 @@ class Discount:
     quantity: int
     price: int
 
+
 @dataclass
 class FreeItem:
     quantity: int
     free_sku: str
+
 
 @dataclass
 class InventoryItem:
@@ -48,7 +50,7 @@ class CheckoutSolution:
                 "F",
                 10,
                 [],
-                [FreeItem(3, "F")]),
+                [FreeItem(3, "F")]),  # Three in basket = 1 free
         }
 
     def input_valid(self, skus):
@@ -99,7 +101,3 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
-
-
-
-
