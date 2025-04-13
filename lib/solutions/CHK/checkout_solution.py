@@ -25,8 +25,14 @@ class CheckoutSolution:
         # Check for undefined invent
         if not isinstance(skus, list):
             return False
-        if not all(isinstance(sku, str) and len(sku) == 1 and sku.isalpha() for sku in skus):
+        if not all(
+                isinstance(sku, str) and
+                len(sku) == 1 and
+                sku.isalpha() and
+                sku in self.inventory 
+                for sku in skus):
             return False
+
 
     # skus = unicode string
     def checkout(self, skus):
@@ -39,5 +45,3 @@ class CheckoutSolution:
         total = 0
 
         # Sum up total
-
-

@@ -10,6 +10,7 @@ class TestCheckout():
 
     def test_invalid_list_content(self):
         assert CheckoutSolution().checkout(["A", "AB"]) == -1
+        assert CheckoutSolution().checkout(["Z", "X"]) == -1
         assert CheckoutSolution().checkout(["A", "1"]) == -1
         assert CheckoutSolution().checkout(["😄", "A" "B"]) == -1
 
@@ -21,4 +22,3 @@ class TestCheckout():
 
     def assert_bulk_discount_and_extras(self):
         assert CheckoutSolution().checkout(["A, A, A, A"]) == 180
-
