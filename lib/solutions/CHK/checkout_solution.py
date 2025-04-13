@@ -111,16 +111,14 @@ class CheckoutSolution:
         total += self.handle_group_discounts(counts)
 
         # Sum up total
-        for sku, count in counts.items():
-            item = self.inventory[sku]
-            # Check for free items
-            for free_item in item.free_items:
-                if count >= free_item.quantity:
-                    free_count = count // free_item.quantity
-                    if free_item.free_sku in counts:
-                        # Remove from counts?
-                        # Will that ever be a disadvantage?
-                        counts[free_item.free_sku] -= free_count
+        self.handle_free_items(counts)
+
+        total += self.handle_bulk_discounts_and_loose_items(counts)
+
+        return total
+
+    def handle_bulk_discounts_and_loose_items(self, counts):
+        total = 0
 
         for sku, count in counts.items():
             item = self.inventory[sku]
@@ -132,8 +130,19 @@ class CheckoutSolution:
                         count %= discount.quantity
 
             total += count * item.price
-
         return total
+
+    def handle_free_items(self, counts):
+        for sku, count in counts.items():
+            item = self.inventory[sku]
+            # Check for free items
+            for free_item in item.free_items:
+                if count >= free_item.quantity:
+                    free_count = count // free_item.quantity
+                    if free_item.free_sku in counts:
+                        # Remove from counts?
+                        # Will that ever be a disadvantage?
+                        counts[free_item.free_sku] -= free_count
 
     def handle_group_discounts(self, counts):
         total = 0
@@ -162,5 +171,6 @@ class CheckoutSolution:
                 # Remove from group items
                 items_to_removed -= remove_count
         return total
+
 
 
