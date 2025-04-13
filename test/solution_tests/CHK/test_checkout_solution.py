@@ -17,6 +17,10 @@ class TestCheckout:
         "A1",
         "😄AB",
         "1231"
+        "-",
+        "A B",
+        "ab",
+        "AaA",
     ])
     def test_invalid_string_content(self, input_data):
         assert CheckoutSolution().checkout(input_data) == -1
@@ -44,5 +48,6 @@ class TestCheckout:
 
     def test_multiple_bulk_discounts_same_product(self):
         assert CheckoutSolution().checkout("AAAAAA") == 260
+
 
 
