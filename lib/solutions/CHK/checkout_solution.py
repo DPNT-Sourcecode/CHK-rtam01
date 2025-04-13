@@ -23,8 +23,6 @@ class CheckoutSolution:
 
     def input_valid(self, skus):
         # Check for undefined invent
-        if not isinstance(skus, list):
-            return False
         if not all(
                 isinstance(sku, str) and
                 len(sku) == 1 and
@@ -38,7 +36,9 @@ class CheckoutSolution:
     # skus = unicode string
     def checkout(self, skus):
         # Check for undefined invent
-        if not self.input_valid(skus):
+        if not isinstance(skus, str):
+            return -1
+        if not self.input_valid(skus.split()):
             return -1
 
         # Count occurrences
@@ -56,3 +56,4 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
+
