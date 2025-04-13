@@ -16,6 +16,13 @@ class FreeItem:
 
 
 @dataclass
+class GroupDiscount:
+    quantity: int
+    skus: List[str]
+    price: int
+
+
+@dataclass
 class InventoryItem:
     sku: str
     price: int
@@ -38,7 +45,7 @@ class CheckoutSolution:
             {"sku": "H", "price": 10, "bulk_discounts": [(5, 45), (10, 80)]},
             {"sku": "I", "price": 35},
             {"sku": "J", "price": 60},
-            {"sku": "K", "price": 80, "bulk_discounts": [(2, 150)]},
+            {"sku": "K", "price": 70, "bulk_discounts": [(2, 120)]},
             {"sku": "L", "price": 90},
             {"sku": "M", "price": 15},
             {"sku": "N", "price": 40, "free_items": [(3, "M")]},
@@ -46,14 +53,14 @@ class CheckoutSolution:
             {"sku": "P", "price": 50, "bulk_discounts": [(5, 200)]},
             {"sku": "Q", "price": 30, "bulk_discounts": [(3, 80)]},
             {"sku": "R", "price": 50, "free_items": [(3, "Q")]},
-            {"sku": "S", "price": 30},
-            {"sku": "T", "price": 20},
+            {"sku": "S", "price": 20, "group_discount"},
+            {"sku": "T", "price": 20, "group_discount"},
             {"sku": "U", "price": 40, "free_items": [(4, "U")]},
             {"sku": "V", "price": 50, "bulk_discounts": [(2, 90), (3, 130)]},
             {"sku": "W", "price": 20},
-            {"sku": "X", "price": 90},
-            {"sku": "Y", "price": 10},
-            {"sku": "Z", "price": 50},
+            {"sku": "X", "price": 17}, "group_discount"},
+            {"sku": "Y", "price": 20}, "group_discount"},
+            {"sku": "Z", "price": 21}, "group_discount"},
         ]
 
         # Populate inventory dynamically
@@ -119,3 +126,4 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
