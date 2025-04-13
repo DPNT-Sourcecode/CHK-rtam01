@@ -73,6 +73,24 @@ class CheckoutSolution:
         # Sum up total
         for sku, count in counts.items():
             item = self.inventory[sku]
+            # Check for free items
+            for free_item in item.free_items:
+                if count >= free_item.quantity:
+                    free_count = count // free_item.quantity
+                    if free_item.free_sku in counts:
+                        # Remove from counts?
+                        counts[free_item.free_sku] -= free_count
+
+        for sku, count in counts.items():
+            item = self.inventory[sku]
+            if item.bulk_discounts:
+                # Handle largest discount first
+                for discount in sorted(item.bulk_discounts, key=lambda d: d.quantity, reverse=True):
+                    if count >= discount.quantity:
+                        total += count // discount.quantity * discount.price
+                        count %= discount.quantity
+
+
             if item.bulk > 0:
                 # Bulk and remainders, or loose items if not at threshold
                 total += count // item.bulk * item.bulk_price
@@ -81,3 +99,4 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
+
