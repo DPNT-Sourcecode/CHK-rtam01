@@ -47,4 +47,5 @@ class TestCheckout:
         assert CheckoutSolution().checkout("AAABB") == 175
 
     def test_multiple_bulk_discounts_same_product(self):
-        assert CheckoutSolution().checkout("AAAAAA") == 260
+        assert CheckoutSolution().checkout("AAAAAA") == 250
+

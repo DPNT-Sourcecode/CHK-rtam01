@@ -84,19 +84,14 @@ class CheckoutSolution:
         for sku, count in counts.items():
             item = self.inventory[sku]
             if item.bulk_discounts:
-                # Handle largest discount first
+                # Handle largest discount first to favor customer with best discount.
                 for discount in sorted(item.bulk_discounts, key=lambda d: d.quantity, reverse=True):
                     if count >= discount.quantity:
                         total += count // discount.quantity * discount.price
                         count %= discount.quantity
 
-
-            if item.bulk > 0:
-                # Bulk and remainders, or loose items if not at threshold
-                total += count // item.bulk * item.bulk_price
-                total += count % item.bulk * item.price
-            else:
-                total += count * item.price
+            total += count * item.price
 
         return total
+
 
