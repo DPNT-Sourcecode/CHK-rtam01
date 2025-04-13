@@ -114,7 +114,14 @@ class CheckoutSolution:
 
         # Check for group discount
         # Ensure best discount is given
-
+        group_items = {sku: counts[sku] for sku in self.group_discount.skus if sku in counts}
+        total_group_count = sum(group_items.values())
+        if total_group_count >= self.group_discount.quantity:
+            # How many groups we have
+            group_discount_count = total_group_count // self.group_discount.quantity
+            total += group_discount_count * self.group_discount.price
+            for sku in group_items:
+                counts[sku] -= group_discount_count
 
         # Sum up total
         for sku, count in counts.items():

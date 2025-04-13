@@ -84,3 +84,6 @@ class TestCheckout:
     def test_checkout(self, input_data, expected_output):
         assert CheckoutSolution().checkout(input_data) == expected_output
 
+    def test_group_discount(self):
+        assert CheckoutSolution().checkout("SSS") == 45
+
