@@ -28,11 +28,18 @@ class InventoryItem:
     price: int
     bulk_discounts: List[Discount] = field(default_factory=list)
     free_items: List[FreeItem] = field(default_factory=list)
+    group_discount: List[GroupDiscount] = field(default_factory=list)
 
 
 class CheckoutSolution:
 
     def __init__(self):
+        # Define group discount(s)
+        self.group_discount = GroupDiscount(
+            quantity=3,
+            skus=["S", "T", "X", "Y", "Z"],
+            price=45
+        )
         # Define items
         product_data = [
             {"sku": "A", "price": 50, "bulk_discounts": [(3, 130), (5, 200)]},
@@ -53,14 +60,14 @@ class CheckoutSolution:
             {"sku": "P", "price": 50, "bulk_discounts": [(5, 200)]},
             {"sku": "Q", "price": 30, "bulk_discounts": [(3, 80)]},
             {"sku": "R", "price": 50, "free_items": [(3, "Q")]},
-            {"sku": "S", "price": 20, "group_discount"},
-            {"sku": "T", "price": 20, "group_discount"},
+            {"sku": "S", "price": 20, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
+            {"sku": "T", "price": 20, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
             {"sku": "U", "price": 40, "free_items": [(4, "U")]},
             {"sku": "V", "price": 50, "bulk_discounts": [(2, 90), (3, 130)]},
             {"sku": "W", "price": 20},
-            {"sku": "X", "price": 17}, "group_discount"},
-            {"sku": "Y", "price": 20}, "group_discount"},
-            {"sku": "Z", "price": 21}, "group_discount"},
+            {"sku": "X", "price": 17, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
+            {"sku": "Y", "price": 20, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
+            {"sku": "Z", "price": 21, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
         ]
 
         # Populate inventory dynamically
@@ -74,6 +81,9 @@ class CheckoutSolution:
                 free_items=[
                     FreeItem(quantity, free_sku) for quantity, free_sku in product.get("free_items", [])
                 ],
+                group_discount=[
+                    GroupDiscount(quantity, skus, price) for quantity, skus, price in product.get("group_discount", [])
+                ]
             )
             for product in product_data
         }
@@ -126,4 +136,5 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
 
