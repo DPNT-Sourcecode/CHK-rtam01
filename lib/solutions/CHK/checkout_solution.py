@@ -19,6 +19,7 @@ class CheckoutSolution:
             "B": InventoryItem("B", 30, 2, 45),
             "C": InventoryItem("C", 20, 0, 0),
             "D": InventoryItem("D", 15, 0, 0),
+            "E": InventoryItem("E", 40, 0, 0),
         }
 
     def input_valid(self, skus):
@@ -56,5 +57,6 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
+
 
 
