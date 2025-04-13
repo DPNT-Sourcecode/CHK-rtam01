@@ -1,5 +1,3 @@
-from collections import Counter
-
 import pytest
 
 from lib.solutions.CHK.checkout_solution import CheckoutSolution
@@ -15,7 +13,6 @@ class TestCheckout:
         assert CheckoutSolution().checkout(input_data) == -1
 
     @pytest.mark.parametrize("input_data", [
-        "ZX",
         "A1",
         "😄AB",
         "1231"
@@ -85,4 +82,5 @@ class TestCheckout:
     )
     def test_checkout(self, input_data, expected_output):
         assert CheckoutSolution().checkout(input_data) == expected_output
+
 
