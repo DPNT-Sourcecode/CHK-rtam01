@@ -48,14 +48,15 @@ class CheckoutSolution:
         # Sum up total
         for sku, count in counts.items():
             item = self.inventory[sku]
-            # Calculate bulk
             if item.bulk > 0:
+                # Bulk and remainders, or loose items if not at threshold
                 total += count // item.bulk * item.bulk_price
                 total += count % item.bulk * item.price
             else:
                 total += count * item.price
 
         return total
+
 
 
 

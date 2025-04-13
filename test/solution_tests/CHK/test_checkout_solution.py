@@ -4,22 +4,22 @@ from lib.solutions.CHK.checkout_solution import CheckoutSolution
 
 
 class TestCheckout:
-    @pytest.mark.parametrize("input_data, expected", [
-        ("123", -1),
-        ("ABC", -1),
-        ("", -1),
+    @pytest.mark.parametrize("input_data", [
+        "123",
+        "ABC",
+        "",
     ])
-    def test_non_list_input(self, input_data, expected):
-        assert CheckoutSolution().checkout(input_data) == expected
+    def test_non_list_input(self, input_data):
+        assert CheckoutSolution().checkout(input_data) == -1
 
-    @pytest.mark.parametrize("input_data, expected", [
-        (["A", "AB"], -1),
-        (["Z", "X"], -1),
-        (["A", "1"], -1),
-        (["😄", "A" "B"], -1),
+    @pytest.mark.parametrize("input_data", [
+        (["A", "AB"]),
+        (["Z", "X"]),
+        (["A", "1"]),
+        (["😄", "A" "B"]),
     ])
-    def test_invalid_list_content(self, input_data, expected):
-        assert CheckoutSolution().checkout(input_data) == expected
+    def test_invalid_list_content(self, input_data):
+        assert CheckoutSolution().checkout(input_data) == -1
 
     def test_no_items(self):
         assert CheckoutSolution().checkout([]) == 0
@@ -41,5 +41,6 @@ class TestCheckout:
 
     def test_bulk_discount_multiple_items(self):
         assert CheckoutSolution().checkout(["A", "A", "B", "B"]) == 145
+
 
 
