@@ -28,7 +28,6 @@ class InventoryItem:
     price: int
     bulk_discounts: List[Discount] = field(default_factory=list)
     free_items: List[FreeItem] = field(default_factory=list)
-    group_discount: List[GroupDiscount] = field(default_factory=list)
 
 
 class CheckoutSolution:
@@ -40,6 +39,7 @@ class CheckoutSolution:
             skus=["S", "T", "X", "Y", "Z"],
             price=45
         )
+
         # Define items
         product_data = [
             {"sku": "A", "price": 50, "bulk_discounts": [(3, 130), (5, 200)]},
@@ -60,14 +60,14 @@ class CheckoutSolution:
             {"sku": "P", "price": 50, "bulk_discounts": [(5, 200)]},
             {"sku": "Q", "price": 30, "bulk_discounts": [(3, 80)]},
             {"sku": "R", "price": 50, "free_items": [(3, "Q")]},
-            {"sku": "S", "price": 20, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
-            {"sku": "T", "price": 20, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
+            {"sku": "S", "price": 20},
+            {"sku": "T", "price": 20},
             {"sku": "U", "price": 40, "free_items": [(4, "U")]},
             {"sku": "V", "price": 50, "bulk_discounts": [(2, 90), (3, 130)]},
             {"sku": "W", "price": 20},
-            {"sku": "X", "price": 17, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
-            {"sku": "Y", "price": 20, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
-            {"sku": "Z", "price": 21, "group_discount": [(3, ["S", "T", "X", "Y", "Z"], 45)]},
+            {"sku": "X", "price": 17},
+            {"sku": "Y", "price": 20},
+            {"sku": "Z", "price": 21},
         ]
 
         # Populate inventory dynamically
@@ -81,15 +81,12 @@ class CheckoutSolution:
                 free_items=[
                     FreeItem(quantity, free_sku) for quantity, free_sku in product.get("free_items", [])
                 ],
-                group_discount=[
-                    GroupDiscount(quantity, skus, price) for quantity, skus, price in product.get("group_discount", [])
-                ]
             )
             for product in product_data
         }
 
     def input_valid(self, skus):
-        # Check for undefined invent
+        # Check for undefined input or inventory items.
         if not all(
                 isinstance(sku, str) and
                 len(sku) == 1 and
@@ -102,7 +99,6 @@ class CheckoutSolution:
 
     # skus = unicode string
     def checkout(self, skus):
-        # Check for undefined invent
         if not isinstance(skus, str):
             return -1
         if not self.input_valid(list(skus)):
@@ -141,8 +137,7 @@ class CheckoutSolution:
 
     def handle_group_discounts(self, counts):
         total = 0
-        # Check for group discount
-        # Ensure best discount is given
+
         group_items = {sku: counts[sku] for sku in self.group_discount.skus if sku in counts}
         total_group_count = sum(group_items.values())
         if total_group_count >= self.group_discount.quantity:
@@ -167,4 +162,5 @@ class CheckoutSolution:
                 # Remove from group items
                 items_to_removed -= remove_count
         return total
+
 
