@@ -74,7 +74,3 @@ class TestCheckout:
     )
     def test_checkout(self, input_data, expected_output):
         assert CheckoutSolution().checkout(input_data) == expected_output
-
-
-
-

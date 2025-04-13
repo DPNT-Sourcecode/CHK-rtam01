@@ -119,5 +119,3 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
-
-
