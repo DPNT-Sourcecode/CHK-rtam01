@@ -14,11 +14,15 @@ class TestCheckout():
         assert CheckoutSolution().checkout(["A", "1"]) == -1
         assert CheckoutSolution().checkout(["😄", "A" "B"]) == -1
 
+    def test_no_items(self):
+        assert CheckoutSolution().checkout([]) == 0
+
     def test_one_item(self):
         assert CheckoutSolution().checkout(["A"]) == 50
 
     def test_bulk_discount(self):
-        assert CheckoutSolution().checkout(["A, A, A"]) == 130
+        assert CheckoutSolution().checkout(["A", "A", "A"]) == 130
 
     def assert_bulk_discount_and_extras(self):
-        assert CheckoutSolution().checkout(["A, A, A, A"]) == 180
+        assert CheckoutSolution().checkout(["A", "A", "A", "A"]) == 180
+

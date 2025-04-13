@@ -33,6 +33,7 @@ class CheckoutSolution:
                 for sku in skus
         ):
             return False
+        return True
 
     # skus = unicode string
     def checkout(self, skus):
@@ -52,4 +53,5 @@ class CheckoutSolution:
             # Calculate extras
             total += count % item.bulk * item.price
         return total
+
 
