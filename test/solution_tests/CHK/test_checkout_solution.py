@@ -25,27 +25,36 @@ class TestCheckout:
     def test_invalid_string_content(self, input_data):
         assert CheckoutSolution().checkout(input_data) == -1
 
-    def test_no_items(self):
-        assert CheckoutSolution().checkout("") == 0
+    @pytest.mark.parametrize(
+        "input_data, expected_output",
+        [
+            ("", 0),
+            ("A", 50),
+            ("C", 20),
+            ("AAA", 130),
+            ("AAAA", 180),
+            ("ABC", 100),
+            ("AAABB", 175),
+            ("AAAAAAAA", 330),
+            ("AAAAAA", 250),
+            ("EEB", 80),
+            ("EEEEBB", 160),
+        ],
+        ids=[
+            "no_items",
+            "one_item_has_bulk",
+            "one_item_no_bulk",
+            "bulk_discount",
+            "bulk_discount_and_extras",
+            "multiple_items",
+            "multiple_bulk_discounts_different_products",
+            "multiple_bulk_discounts_same_product",
+            "biggest_discount_used",
+            "one_freebie",
+            "two_freebies",
+        ],
+    )
+    def test_checkout(self, input_data, expected_output):
+        assert CheckoutSolution().checkout(input_data) == expected_output
 
-    def test_one_item_has_bulk(self):
-        assert CheckoutSolution().checkout("A") == 50
-
-    def test_one_item_no_bulk(self):
-        assert CheckoutSolution().checkout("C") == 20
-
-    def test_bulk_discount(self):
-        assert CheckoutSolution().checkout("AAA") == 130
-
-    def test_bulk_discount_and_extras(self):
-        assert CheckoutSolution().checkout("AAAA") == 180
-
-    def test_multiple_items(self):
-        assert CheckoutSolution().checkout("ABC") == 100
-
-    def test_multiple_bulk_discounts_different_products(self):
-        assert CheckoutSolution().checkout("AAABB") == 175
-
-    def test_multiple_bulk_discounts_same_product(self):
-        assert CheckoutSolution().checkout("AAAAAA") == 250
 

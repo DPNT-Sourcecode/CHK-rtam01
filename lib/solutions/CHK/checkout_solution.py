@@ -79,6 +79,7 @@ class CheckoutSolution:
                     free_count = count // free_item.quantity
                     if free_item.free_sku in counts:
                         # Remove from counts?
+                        # Will that ever be a disadvantage?
                         counts[free_item.free_sku] -= free_count
 
         for sku, count in counts.items():
@@ -93,5 +94,6 @@ class CheckoutSolution:
             total += count * item.price
 
         return total
+
 
 
