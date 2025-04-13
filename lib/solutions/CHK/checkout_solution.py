@@ -29,10 +29,10 @@ class CheckoutSolution:
                 isinstance(sku, str) and
                 len(sku) == 1 and
                 sku.isalpha() and
-                sku in self.inventory 
-                for sku in skus):
+                sku in self.inventory
+                for sku in skus
+        ):
             return False
-
 
     # skus = unicode string
     def checkout(self, skus):
@@ -45,3 +45,11 @@ class CheckoutSolution:
         total = 0
 
         # Sum up total
+        for sku, count in counts.items():
+            item = self.inventory[sku]
+            # Calculate bulk
+            total += count // item.bulk * item.bulk_price
+            # Calculate extras
+            total += count % item.bulk * item.price
+        return total
+
