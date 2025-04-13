@@ -8,6 +8,8 @@ class TestCheckout:
         "123",
         "ABC",
         "",
+        123,
+        None,
     ])
     def test_non_list_input(self, input_data):
         assert CheckoutSolution().checkout(input_data) == -1
@@ -17,6 +19,7 @@ class TestCheckout:
         (["Z", "X"]),
         (["A", "1"]),
         (["😄", "A" "B"]),
+        ([1, 2, 3])
     ])
     def test_invalid_list_content(self, input_data):
         assert CheckoutSolution().checkout(input_data) == -1
@@ -44,6 +47,7 @@ class TestCheckout:
 
     def test_multiple_bulk_discounts_same_product(self):
         assert CheckoutSolution().checkout(["A", "A", "A", "A", "A", "A"]) == 260
+
 
 
 
