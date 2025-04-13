@@ -38,7 +38,7 @@ class CheckoutSolution:
         # Check for undefined invent
         if not isinstance(skus, str):
             return -1
-        if not self.input_valid(skus.split()):
+        if not self.input_valid(list(skus)):
             return -1
 
         # Count occurrences
@@ -56,4 +56,5 @@ class CheckoutSolution:
                 total += count * item.price
 
         return total
+
 
